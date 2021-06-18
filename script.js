@@ -4,19 +4,18 @@ console.log('Hallo Winc Academy studenten');
 
 
 // Hey Kiddo
-const Age = function(number) {
+const peopleAge = function(age) {
     console.log("theAge");
-    if (number >= 18) {
+    if (age >= 18) {
         return true;
     }
     return false;
 };
 
 
-const AgeCheck = function(number) {
-    console.log("Entering AgeCheck. Input of Age >= 18: ", number);
-    const peopleAge = Age(number);
-    if (peopleAge >= 18) {
+const AgeCheck = function(age) {
+    console.log("Entering AgeCheck. Input of Age >= 18: ", age);
+    if (peopleAge(age)) {
         return "Hello there";
     }
     return "Hey Kiddo";
@@ -27,38 +26,28 @@ console.log(AgeCheck(15));
 
 // VAT calculation 
 // VAT exercise 1, base price, VAT % and return price incl VAT
-const VATpercentage = function(number) {
-    return number * 0.21;
+const VATpercentage = function(basePrice, VATPercentage) {
+    return basePrice * (VATPercentage / 100);
 };
 
-const PriceTotal = function(number) {
-    const PriceTotalCalc = VATpercentage(number);
-    return number *1.21;
+const TotalPrice = function(basePrice, VATPercentage) {
+    const calcVAT = VATpercentage(basePrice, VATPercentage);
+    return basePrice + calcVAT;
 };
 
-const TotalPrice = function(number) {
-    const percentageOfVAT = VATpercentage(number);
-    const priceInclVAT = PriceTotal(percentageOfVAT);
-    return priceInclVAT;
-};
-
-console.log(TotalPrice(1000));
+console.log(TotalPrice(1000, 21));
 
 
 // VAT exercise 2, an array with 2 values, incl VAT & VAT%
-const PriceWithVAT = function(number) {
-    return number * 1.21;
+const PriceWithoutVAT = function(priceInclVAT, VATPercentage) {
+    const basePrice = priceInclVAT / ((100 + VATPercentage) / 100);
+    return basePrice;
 };
 
-const PriceWithoutVAT = function(number) {
-    const PriceTotalCalc = VATpercentage(number);
-    return number *1.21;
+const PriceWithVAT = function(priceInclVAT, VATPercentage) {
+    const basePrice = PriceWithoutVAT(priceInclVAT, VATPercentage);
+    const VAT = priceInclVAT - basePrice;
+    return [basePrice, VAT];
 };
 
-const TotalPrice2 = function(number) {
-    let calcInclVAT = [PriceWithVAT(number)];
-    let VATnumber = [PriceTotal(calcInclVAT)];
-    return VATnumber;
-};
-
-console.log(TotalPrice2(100));
+console.log(PriceWithVAT(242, 21));
